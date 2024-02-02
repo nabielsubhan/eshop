@@ -26,12 +26,15 @@ public class ProductServiceImpl implements ProductService {
         Iterator<Product> productIterator = productRepository.findAll();
         List<Product> allProduct = new ArrayList<>();
         productIterator.forEachRemaining(allProduct::add);
+        for (Product product : allProduct) {
+            System.out.println(product.getProductName());
+        }
         return allProduct;
     }
 
     @Override
     public Product edit(Product editedProduct) {
-        Product product = productRepository.findById(editedProduct.getProductID());
+        Product product = productRepository.findById(editedProduct.getProductId());
         return productRepository.edit(product, editedProduct);
     }
 
