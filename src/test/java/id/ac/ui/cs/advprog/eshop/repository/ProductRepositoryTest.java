@@ -23,7 +23,7 @@ class ProductRepositoryTest {
     @Test
     void testCreateAndFind() {
         Product product = new Product();
-        product.setProductID("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         product.setProductName("Sampo Cap Bambang");
         product.setProductQuantity(100);
         productRepository.create(product);
@@ -31,7 +31,7 @@ class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
         Product savedProduct = productIterator.next();
-        assertEquals(product.getProductID(), savedProduct.getProductID());
+        assertEquals(product.getProductId(), savedProduct.getProductId());
         assertEquals(product.getProductName(), savedProduct.getProductName());
         assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
     }
@@ -44,13 +44,13 @@ class ProductRepositoryTest {
     @Test
     void testFindAllIfMoreThanOneProduct() {
         Product product1 = new Product();
-        product1.setProductID("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
         product1.setProductName("Sampo Cap Bambang");
         product1.setProductQuantity(100);
         productRepository.create(product1);
 
         Product product2 = new Product();
-        product1.setProductID("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product1.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
         product1.setProductName("Sampo Cap Usep");
         product1.setProductQuantity(50);
         productRepository.create(product2);
@@ -58,9 +58,9 @@ class ProductRepositoryTest {
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
         Product savedProduct = productIterator.next();
-        assertEquals(product1.getProductID(), savedProduct.getProductID());
+        assertEquals(product1.getProductId(), savedProduct.getProductId());
         savedProduct = productIterator.next();
-        assertEquals(product2.getProductID(), savedProduct.getProductID());
+        assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
 }
