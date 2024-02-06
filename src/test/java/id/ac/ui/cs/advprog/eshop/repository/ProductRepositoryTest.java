@@ -63,5 +63,81 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testFindById() {
+        Product product = new Product();
+        product.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product.setProductName("Conditioner Cap Kaki Sebelas");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Product foundProduct = productRepository.findById("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        assertEquals(product.getProductId(), foundProduct.getProductId());
+    }
+
+    @Test
+    void testEditProduct() {
+        Product product = new Product();
+        product.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product.setProductName("Conditioner Cap Kaki Sebelas");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Product editedProduct = new Product();
+        editedProduct.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        editedProduct.setProductName("Conditioner Cap Cai");
+        editedProduct.setProductQuantity(5);
+
+        productRepository.edit(product, editedProduct);
+
+        assertEquals("a0f9de46-90b1-437d-a0bf-d0821dde9096", product.getProductId());
+        assertEquals("Conditioner Cap Cai", product.getProductName());
+        assertEquals(5, product.getProductQuantity());
+    }
+
+    @Test
+    void testDeleteIfOnlyOneProduct() {
+        Product product = new Product();
+        product.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product.setProductName("Conditioner Cap Kaki Sebelas");
+        product.setProductQuantity(10);
+        productRepository.create(product);
+
+        Iterator<Product> productIteratorBeforeDelete = productRepository.findAll();
+        assertTrue(productIteratorBeforeDelete.hasNext());
+
+        productRepository.delete(product);
+
+        Iterator<Product> productIteratorAfterDelete = productRepository.findAll();
+        assertFalse(productIteratorAfterDelete.hasNext());
+    }
+
+    @Test
+    void testDeleteIfMoreThanOneProduct() {
+        Product product1 = new Product();
+        product1.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product1.setProductName("Sampo Cap Bambang");
+        product1.setProductQuantity(100);
+        productRepository.create(product1);
+
+        Product product2 = new Product();
+        product1.setProductId("a0f9de46-90b1-437d-a0bf-d0821dde9096");
+        product1.setProductName("Sampo Cap Usep");
+        product1.setProductQuantity(50);
+        productRepository.create(product2);
+
+        productRepository.delete(product1);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertTrue(productIterator.hasNext());
+        Product remainingProduct = productIterator.next();
+        assertEquals(product2.getProductId(), remainingProduct.getProductId());
+        assertEquals(product2.getProductName(), remainingProduct.getProductName());
+        assertEquals(product2.getProductQuantity(), remainingProduct.getProductQuantity());
+        assertNotEquals(product1.getProductId(), remainingProduct.getProductId());
+        assertNotEquals(product1.getProductName(), remainingProduct.getProductName());
+        assertNotEquals(product1.getProductQuantity(), remainingProduct.getProductQuantity());
+    }
 }
 
