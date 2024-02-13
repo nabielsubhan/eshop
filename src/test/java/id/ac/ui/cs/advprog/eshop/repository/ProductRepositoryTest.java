@@ -74,6 +74,13 @@ class ProductRepositoryTest {
 
         Product foundProduct = productRepository.findById("a0f9de46-90b1-437d-a0bf-d0821dde9096");
         assertEquals(product.getProductId(), foundProduct.getProductId());
+
+        assertNull(productRepository.findById("eb558e9f-1c39-460e-8860-71af6af63bd6"));
+    }
+
+    @Test
+    void testFindByIdIfEmpty() {
+        assertNull(productRepository.findById("a0f9de46-90b1-437d-a0bf-d0821dde9096"));
     }
 
     @Test
