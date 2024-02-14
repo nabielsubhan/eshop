@@ -25,7 +25,7 @@ class ProductControllerTest {
     void testCreateProductPage() {
         Model model = new BindingAwareModelMap();
         String taskName = productController.createProductPage(model);
-        assertEquals("createProduct", taskName);
+        assertEquals("CreateProduct", taskName);
         assertTrue(model.containsAttribute("product"));
     }
     @Test
@@ -41,7 +41,7 @@ class ProductControllerTest {
     void testProductListPage() {
         Model model = new BindingAwareModelMap();
         String taskName = productController.productListPage(model);
-        assertEquals("productList", taskName);
+        assertEquals("ProductList", taskName);
         assertTrue(model.containsAttribute("products"));
     }
 
@@ -57,7 +57,7 @@ class ProductControllerTest {
         Model model = new BindingAwareModelMap();
         String viewName = productController.editProductPage(productId, model);
 
-        assertEquals("editProduct", viewName);
+        assertEquals("EditProduct", viewName);
         assertEquals(product, model.getAttribute("product"));
         verify(productService, times(1)).findById(productId);
     }
