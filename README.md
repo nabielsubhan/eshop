@@ -14,3 +14,16 @@ Untuk bagian yang dapat di-*improve* menurut saya adalah pada bagian `Error hand
 ## Refleksi 2
 1. Setelah membuat unit test, hal tersebut membuat saya menjadi lebih yakin dengan code yang telah saya buat karena program yang dibuat sudah sesuai dengan ekspektasi. Menurut saya, jumlah unit test pada suatu class dipengaruhi juga oleh banyaknya function yang ada pada class tersebut. Setidaknya untuk setiap function pada class tersebut perlu ada satu unit test untuk mengecek kebenaran kerja function tersebut sehingga *code coverage* nya bisa lebih tinggi. Meskipun begitu, tercapainya 100% pada *code coverage* masih belum bisa menjamin bahwa code kita terhindar dari error atau bug karena bisa saja terdapat logic error pada function kita.
 2. Menurut saya, jika kita membuat class baru untuk membuat functional test tersebut akan membuat adanya *redundancy code* karena terdapat code yang duplikat pada bagian *setup procedures* dan *instance variables* yang digunakan. Hal ini akan menimbulkan masalah pada aspek *clean code* program kita. Oleh karena itu, menurut saya, cara yang dapat dilakukan untuk memperbaikinya adalah dengan menaruh test terbaru tersebut pada class yang sama karena antara kedua test tersebut masih terdapat hubungan yang sama, yaitu sama-sama menguji function createProduct. Dengan begitu, *redundancy code* bisa kita hindari sehingga kualitas code kita dalam aspek *clean code* masih bisa terjaga.
+
+# Tutorial-2
+## Refleksi
+1. Code quality issues:
+   - Unused import
+     Menghilangkan semua import yang tidak digunakan di setiap file.
+   - Class modifier
+     Mengubah modifier class pada file ProductControllerTest yang sebelumnya `public` menjadi `default`.
+   - Field Injection
+     Mengubah inisialisasi objek yang sebelumnya menggunakan injeksi AutoWired menjadi inisialisasi objek secara langsung.
+
+2. Menurut saya, implementasi sekarang sudah memenuhi kriteria CI/CD. Dengan adanya `ci.yml` akan membuat setiap kali kita melakukan push ke branch manapun akan dijalankan unit test secara otomatis sehingga Continuous Integration terpenuhi. Setelah berhasil melakukan unit test, code kita akan di cek kembali aspek *code security*-nya menggunakan actions pada `scorecard.yml` dan juga akan dicek
+kualitas kode kita dengan actions di `sonarcloud.yml`. Setelah itu, dengan menggunakan Github Actions akan dilakukan deployment secara otomatis ke PaaS Koyeb sehingga Continuous Development juga terpenuhi. Dengan begitu, pada implementasi ini CI/CD sudah terpenuhi sehingga nantinya dapat dilakukan pengetesan dan proses deployment secara otomatis.
