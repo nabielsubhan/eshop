@@ -7,9 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.ui.Model;
 import org.springframework.validation.support.BindingAwareModelMap;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -50,7 +47,6 @@ class ProductControllerTest {
 
     @Test
     void testEditProductPage() {
-        // Prepare test data
         String productId = "eb558e9f-1c39-460e-8860-71af6af63bd6";
         Product product = new Product();
         product.setProductId(productId);
@@ -58,11 +54,9 @@ class ProductControllerTest {
 
         when(productService.findById(productId)).thenReturn(product);
 
-        // Invoke the editProductPage method
         Model model = new BindingAwareModelMap();
         String viewName = productController.editProductPage(productId, model);
 
-        // Verify the result
         assertEquals("editProduct", viewName);
         assertEquals(product, model.getAttribute("product"));
         verify(productService, times(1)).findById(productId);
