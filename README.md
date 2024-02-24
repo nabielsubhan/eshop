@@ -27,3 +27,27 @@ Untuk bagian yang dapat di-*improve* menurut saya adalah pada bagian `Error hand
 
 2. Menurut saya, implementasi sekarang sudah memenuhi kriteria CI/CD. Dengan adanya `ci.yml` akan membuat setiap kali kita melakukan push ke branch manapun akan dijalankan unit test secara otomatis sehingga Continuous Integration terpenuhi. Setelah berhasil melakukan unit test, code kita akan di cek kembali aspek *code security*-nya menggunakan actions pada `scorecard.yml` dan juga akan dicek
 kualitas kode kita dengan actions di `sonarcloud.yml`. Setelah itu, dengan menggunakan Github Actions akan dilakukan deployment secara otomatis ke PaaS Koyeb sehingga Continuous Development juga terpenuhi. Dengan begitu, pada implementasi ini CI/CD sudah terpenuhi sehingga nantinya dapat dilakukan pengetesan dan proses deployment secara otomatis.
+
+## Refleksi 3
+1. Principles that applied in the current project
+- Single Responsibility Principle (SRP)
+  Prinsip ini menyatakan bahwa suatu kelas harus memiliki hanya satu fungsionalitas saja dan function-function di dalamnya juga haruslah yang memiliki kaitan jelas dengan class tersebut. Contohnya seperti pemisahan class CarController dengan ProductController.
+- Open-Closed Principle (OCP)
+  Prinsip ini menyatakan bahwa suatu class harus terbuka untuk perluasan dan tertutup untuk modifikasi sehingga untuk menambahkan suatu fitur baru tidak perlu mengubah kode pada class sebelumnya tetapi hanya perlu meng-extend class tersebut dan menambahkan fitur yang baru di sana. Sejauh ini, proyek ini belum terdapat proses meng-inherit class lain sehingga prinsip OCP masih terjaga.
+- Liskov Substitution Principle (LSP)
+  Prinsip ini menyatakan bahwa suatu superclass dan subtypes-nya perlu memiliki behavior yang konsisten sehingga suatu subtype bisa menggantikan superclass-nya. Pada proyek ini belum dilakukan proses meng-inherit class lain sehingga prinsip LSP juga masih terjaga.
+- Interface Segregation Principle (ISP)
+  Prinsip ini menyatakan bahwa kita perlu untuk menghindari membuat suatu interface yang kompleks dengan membaginya menjadi interface yang lebih kecil dan spesifik. Dengan begitu, client yang nantinya meng-implement interface tersebut tidak perlu membuat function-function yang tidak relevan. Contohnya pada proyek ini, interface CarService dan ProductService sudah memiliki method-method yang relevan sehingga prinsip ini terpenuhi.
+- Dependency Inversion Principle (DIP)
+  Prinsip ini menyatakan bahwa high-level modules jangan bergantung kepada low-level modules, tetapi keduanya seharusnya bergantung pada abstraction. Contohnya seperti penggunaan class interface sebagai data type dibandingkan dengan class yang meng-implement interface-nya.
+
+2. Advantages of applying SOLID principles
+- Kode yang lebih mudah dimengerti, terstruktur, dan bersih.
+- Kode menjadi lebih fleksibel sehingga mudah diperluas dan diubah kedepannya.
+- Memudahkan dalam melakukan testing.
+- Memiliki skalabilitas yang baik sehingga lebih mudah dalam berkembang.
+- Memfasilitasi reusabilitas kode.
+
+3. Disadvantages of not applying SOLID principles
+- Kesulitan dalam mengembangkan atau memperluas kode sehingga perlu merombak program jika terdapat fitur baru yang akan diimplementasikan.
+- Kesulitan dalam melakukan testing karena komponen-komponen pada program memiliki ketergantungan yang tinggi dengan komponen lainnya.
