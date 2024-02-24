@@ -13,7 +13,7 @@ import java.util.List;
 @RequestMapping("/car")
 public class CarController {
 
-    private CarService carService = new CarServiceImpl();
+    private final CarService carService;
 
     CarController(CarService carService) {
         this.carService = carService;
