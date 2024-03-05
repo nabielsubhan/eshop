@@ -112,7 +112,7 @@ class OrderServiceTest {
         Order order = orders.get(1);
         doReturn(orders).when(orderRepository).findAllByAuthor((order.getAuthor()));
 
-        List<Order> results = orderService.findAllbyAuthor(order.getAuthor());
+        List<Order> results = orderService.findAllByAuthor(order.getAuthor());
         for (Order result : results) {
             assertEquals(order.getAuthor(), result.getAuthor());
         }
