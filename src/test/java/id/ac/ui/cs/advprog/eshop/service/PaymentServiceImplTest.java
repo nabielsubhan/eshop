@@ -57,13 +57,13 @@ class PaymentServiceTest {
 
         Map<String, String> paymentDataVoucher = new HashMap<>();
         paymentDataVoucher.put("voucherCode", "ESHOP1234ABC5678");
-        Payment payment1 = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "VOUCHER_CODE", orders.getFirst(), paymentDataVoucher, PaymentStatus.PENDING.getValue());
+        Payment payment1 = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "VOUCHER_CODE", orders.getFirst(), paymentDataVoucher);
         payments.add(payment1);
 
         Map<String, String> paymentDataCashOnDelivery = new HashMap<>();
         paymentDataCashOnDelivery.put("address", "Citayam Raya Street No. 71");
         paymentDataCashOnDelivery.put("deliveryFee", "100000");
-        Payment payment2 = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "CASH_ON_DELIVERY", orders.getFirst(), paymentDataCashOnDelivery, PaymentStatus.PENDING.getValue());
+        Payment payment2 = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "CASH_ON_DELIVERY", orders.getFirst(), paymentDataCashOnDelivery);
         payments.add(payment2);
     }
 
@@ -71,6 +71,7 @@ class PaymentServiceTest {
     void testAddPayment() {
         Payment payment = payments.getFirst();
         doReturn(payment).when(paymentRepository).addPayment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
+        paymentService.addPayment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
 
         verify(paymentRepository, times(1)).addPayment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
     }
@@ -110,7 +111,7 @@ class PaymentServiceTest {
         Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER_CODE.getValue(), orders.getFirst(), paymentData);
 
         assertEquals("SUCCESS", payment.getStatus());
-        paymentService.setStatus("REJECTED");
+        paymentService.setStatus(payment,"REJECTED");
         assertEquals("REJECTED", payment.getStatus());
     }
     @Test
