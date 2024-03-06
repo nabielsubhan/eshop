@@ -1,16 +1,14 @@
-package enums;
+package id.ac.ui.cs.advprog.eshop.enums;
 
 import lombok.Getter;
 
 @Getter
-public enum OrderStatus {
-    WAITING_PAYMENT("WAITING_PAYMENT"),
-    FAILED("FAILED"),
+public enum PaymentStatus {
     SUCCESS("SUCCESS"),
-    CANCELLED("CANCELLED");
+    REJECTED("REJECTED");
 
     private final String value;
-    private OrderStatus(String value) {
+    private PaymentStatus(String value) {
         this.value = value;
     }
 
