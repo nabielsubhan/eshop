@@ -12,7 +12,20 @@ import java.util.Map;
 public class PaymentRepository {
     private List<Payment> payments = new ArrayList<>();
 
-    public Payment addPayment(Order order, String method, Map<String, String> paymentData) {return null;}
-    public Payment getPayment(String paymentId) {return null;}
-    public List<Payment> getAllPayments() {return null;}
+    public Payment addPayment(Order order, String method, Map<String, String> paymentData) {
+        Payment payment = new Payment(order.getId(), method, order, paymentData);
+        payments.add(payment);
+        return payment;
+    }
+    public Payment getPayment(String paymentId) {
+        for (Payment payment : payments) {
+            if (payment.getId().equals(paymentId)) {
+                return payment;
+            }
+        }
+        return null;
+    }
+    public List<Payment> getAllPayments() {
+        return payments;
+    }
 }
