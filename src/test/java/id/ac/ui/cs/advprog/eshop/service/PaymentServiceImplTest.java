@@ -57,13 +57,13 @@ class PaymentServiceTest {
 
         Map<String, String> paymentDataVoucher = new HashMap<>();
         paymentDataVoucher.put("voucherCode", "ESHOP1234ABC5678");
-        Payment payment1 = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "VOUCHER_CODE", orders.getFirst(), paymentDataVoucher);
+        Payment payment1 = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER_CODE.getValue(), orders.getFirst(), paymentDataVoucher);
         payments.add(payment1);
 
         Map<String, String> paymentDataCashOnDelivery = new HashMap<>();
         paymentDataCashOnDelivery.put("address", "Citayam Raya Street No. 71");
         paymentDataCashOnDelivery.put("deliveryFee", "100000");
-        Payment payment2 = new Payment("136522556-012a-4c07-b546-54eb1396d79b", "CASH_ON_DELIVERY", orders.getFirst(), paymentDataCashOnDelivery);
+        Payment payment2 = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.CASH_ON_DELIBERY.getValue(), orders.getFirst(), paymentDataCashOnDelivery);
         payments.add(payment2);
     }
 
@@ -82,7 +82,7 @@ class PaymentServiceTest {
 
         Payment findResult = paymentService.getPayment(payment.getId());
         assertEquals(payment.getId(), findResult.getId());
-        assertEquals("VOUCHER_CODE", findResult.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), findResult.getMethod());
         assertEquals(payment.getStatus(), findResult.getStatus());
 
         verify(paymentRepository, times(1)).getPayment(payment.getId());
@@ -110,9 +110,9 @@ class PaymentServiceTest {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
         Payment payment = new Payment("136522556-012a-4c07-b546-54eb1396d79b", PaymentMethod.VOUCHER_CODE.getValue(), orders.getFirst(), paymentData);
 
-        assertEquals("SUCCESS", payment.getStatus());
-        paymentService.setStatus(payment,"REJECTED");
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
+        paymentService.setStatus(payment,PaymentStatus.REJECTED.getValue());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
     @Test
     void testSetStatusFailed() {
