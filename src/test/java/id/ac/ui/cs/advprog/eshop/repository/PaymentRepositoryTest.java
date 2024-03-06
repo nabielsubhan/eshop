@@ -1,7 +1,5 @@
 package id.ac.ui.cs.advprog.eshop.repository;
 
-import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
-import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.model.Product;
@@ -54,7 +52,7 @@ class PaymentRepositoryTest {
     @Test
     void testAddPayment() {
         Payment payment = payments.getFirst();
-        Payment result = paymentRepository.addPaymment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
+        Payment result = paymentRepository.addPayment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
 
         Payment findResult = paymentRepository.getPayment(payment.getId());
         assertEquals(payment.getId(), result.getId());
@@ -66,10 +64,10 @@ class PaymentRepositoryTest {
     @Test
     void testGetPaymentIfIdFound() {
         for (Payment payment : payments) {
-            paymentRepository.addPaymment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
+            paymentRepository.addPayment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
         }
 
-        Payment findResult = paymentRepository.findById(payments.getFirst().getId());
+        Payment findResult = paymentRepository.getPayment(payments.getFirst().getId());
         assertEquals(payments.getFirst().getId(), findResult.getId());
         assertEquals(payments.getFirst().getMethod(), findResult.getMethod());
         assertEquals(payments.getFirst().getPaymentData(), findResult.getPaymentData());
@@ -78,16 +76,16 @@ class PaymentRepositoryTest {
     @Test
     void testGetPaymentIfIdNotFound() {
         for (Payment payment : payments) {
-            paymentRepository.addPaymment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
+            paymentRepository.addPayment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
         }
 
-        Payment findResult = paymentRepository.findById("zczc");
+        Payment findResult = paymentRepository.getPayment("zczc");
         assertNull(findResult);
     }
     @Test
     void testGetAllPayments() {
         for (Payment payment : payments) {
-            paymentRepository.addPaymment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
+            paymentRepository.addPayment(payment.getOrder(), payment.getMethod(), payment.getPaymentData());
         }
 
         List<Payment> findResult = paymentRepository.getAllPayments();
