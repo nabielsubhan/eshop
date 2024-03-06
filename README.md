@@ -51,3 +51,8 @@ kualitas kode kita dengan actions di `sonarcloud.yml`. Setelah itu, dengan mengg
 3. Disadvantages of not applying SOLID principles
 - Kesulitan dalam mengembangkan atau memperluas kode sehingga perlu merombak program jika terdapat fitur baru yang akan diimplementasikan.
 - Kesulitan dalam melakukan testing karena komponen-komponen pada program memiliki ketergantungan yang tinggi dengan komponen lainnya.
+
+# Refleksi 4
+1. Menurut saya, menggunakan alur TDD ini akan memberikan beberapa manfaat, diantaranya adalah desain kode yang lebih baik, alur yang sistematis, serta mengurangi bug yang dapat muncul di program kita nantinya. Meskipun di awal kita perlu berandai-andai tentang cara kerja program kita dan menentukan segalam macam edge case yang mungkin terjadi, tetapi hal tersebut nantinya akan menghasilkan kodingan program yang meyakinkan sehingga memudahkan kita dalam proses pengembangan program kedepannya karena ada tes yang dapat dijadikan acuan apakah perubahan yang kita lakukan merubah fungsionalitas asli program kita atau tidak.
+
+2. Menurut saya, test-test tersebut sudah menerapkan F.I.R.S.T. principle. Test-test tersebut sudah didesain untuk dapat berjalan dengan cepat. Lalu, test tersebut juga dibuat terisolasi dengan test lain sehingga hasil suatu test tidak memengaruhi hasil test lainnya. Test tersebut juga memberikan hasil yang konsisten sehingga dapat memberikan keyakinan bahwa kebenaran suatu fungsionalitas program sudah tercapai. Selain itu, penggunaan method assert dan method validasi lainnya sudah membantu kita untuk mengetahui apakah pengujian yang kita lakukan sudah berhasil atau tidak. Terakhir, test-test tersebut juga sudah meng-cover semua happy dan unhappy path sekaligus dengan berbagai edge case yang mungkin terjadi.
