@@ -1,5 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -37,7 +40,7 @@ class PaymentTest {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData);
+            Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
         });
     }
     @Test
@@ -50,10 +53,10 @@ class PaymentTest {
     void testCreatePaymentWithValidMethod() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData);
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
 
         assertEquals("1234567-asdfghj-89-kl", payment.getId());
-        assertEquals("VOUCHER_CODE", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
         assertSame(order, payment.getOrder());
     }
     @Test
@@ -61,10 +64,10 @@ class PaymentTest {
         paymentData.put("address", "Citayam Raya Street No. 71");
         paymentData.put("deliveryFee", "100000");
 
-        Payment payment = new Payment("9876543-qwertyu-21-io", "CASH_ON_DELIVERY", order, paymentData);
+        Payment payment = new Payment("9876543-qwertyu-21-io", PaymentMethod.CASH_ON_DELIBERY.getValue(), order, paymentData);
 
         assertEquals("9876543-qwertyu-21-io", payment.getId());
-        assertEquals("CASH_ON_DELIVERY", payment.getMethod());
+        assertEquals(PaymentMethod.CASH_ON_DELIBERY.getValue(), payment.getMethod());
         assertSame(order, payment.getOrder());
     }
     @Test
@@ -77,30 +80,30 @@ class PaymentTest {
     void testCreatePaymentVoucherCodeWithSuccessStatus() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData, "SUCCESS");
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, PaymentStatus.SUCCESS.getValue());
 
         assertEquals("1234567-asdfghj-89-kl", payment.getId());
-        assertEquals("VOUCHER_CODE", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
         assertSame(order, payment.getOrder());
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
     @Test
     void testCreatePaymentVoucherCodeWithRejectedStatus() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData, "REJECTED");
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, PaymentStatus.REJECTED.getValue());
 
         assertEquals("1234567-asdfghj-89-kl", payment.getId());
-        assertEquals("VOUCHER_CODE", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
         assertSame(order, payment.getOrder());
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
     @Test
     void testCreatePaymentVoucherCodeWithInvalidStatus() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData, "EITS");
+            Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, "EITS");
         });
     }
     @Test
@@ -108,24 +111,24 @@ class PaymentTest {
         paymentData.put("address", "Citayam Raya Street No. 71");
         paymentData.put("deliveryFee", "100000");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "CASH_ON_DELIVERY", order, paymentData, "SUCCESS");
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.CASH_ON_DELIBERY.getValue(), order, paymentData, PaymentStatus.SUCCESS.getValue());
 
         assertEquals("1234567-asdfghj-89-kl", payment.getId());
-        assertEquals("CASH_ON_DELIVERY", payment.getMethod());
+        assertEquals(PaymentMethod.CASH_ON_DELIBERY.getValue(), payment.getMethod());
         assertSame(order, payment.getOrder());
-        assertEquals("SUCCESS", payment.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
     }
     @Test
     void testCreatePaymentCashOnDeliveryWithRejectedStatus() {
         paymentData.put("address", "Citayam Raya Street No. 71");
         paymentData.put("deliveryFee", "100000");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "CASH_ON_DELIVERY", order, paymentData, "REJECTED");
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.CASH_ON_DELIBERY.getValue(), order, paymentData, PaymentStatus.REJECTED.getValue());
 
         assertEquals("1234567-asdfghj-89-kl", payment.getId());
-        assertEquals("CASH_ON_DELIVERY", payment.getMethod());
+        assertEquals(PaymentMethod.CASH_ON_DELIBERY.getValue(), payment.getMethod());
         assertSame(order, payment.getOrder());
-        assertEquals("REJECTED", payment.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
     }
     @Test
     void testCreatePaymentCashOnDeliveryWithInvalidStatus() {
@@ -133,60 +136,60 @@ class PaymentTest {
         paymentData.put("deliveryFee", "100000");
 
         assertThrows(IllegalArgumentException.class, () -> {
-            Payment payment = new Payment("1234567-asdfghj-89-kl", "CASH_ON_DELIVERY", order, paymentData, "EITS");
+            Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.CASH_ON_DELIBERY.getValue(), order, paymentData, "EITS");
         });
     }
     @Test
     void testSetPaymentStatusVoucherCodeToSuccess() {
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData);
-        payment.setStatus("SUCCESS");
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
+        payment.setStatus(PaymentStatus.SUCCESS.getValue());
 
-        assertEquals("SUCCESS", payment.getStatus());
-        assertEquals("SUCCESS", order.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.SUCCESS.getValue(), order.getStatus());
     }
     @Test
     void testSetPaymentVoucherCodeStatusToRejected() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData);
-        payment.setStatus("REJECTED");
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
+        payment.setStatus(PaymentStatus.REJECTED.getValue());
 
-        assertEquals("REJECTED", payment.getStatus());
-        assertEquals("FAILED", order.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), order.getStatus());
     }
     @Test
     void testSetPaymentVoucherCodeStatusToInvalid() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData);
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
 
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("EITS"));
     }
     @Test
     void testSetPaymentStatusCashOnDeliveryToSuccess() {
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "CASH_ON_DELIVERY", order, paymentData);
-        payment.setStatus("SUCCESS");
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.CASH_ON_DELIBERY.getValue(), order, paymentData);
+        payment.setStatus(PaymentStatus.SUCCESS.getValue());
 
-        assertEquals("SUCCESS", payment.getStatus());
-        assertEquals("SUCCESS", order.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.SUCCESS.getValue(), order.getStatus());
     }
     @Test
     void testSetPaymentCashOnDeliveryStatusToRejected() {
         paymentData.put("address", "Citayam Raya Street No. 71");
         paymentData.put("deliveryFee", "100000");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "CASH_ON_DELIVERY", order, paymentData);
-        payment.setStatus("REJECTED");
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.CASH_ON_DELIBERY.getValue(), order, paymentData);
+        payment.setStatus(PaymentStatus.REJECTED.getValue());
 
-        assertEquals("REJECTED", payment.getStatus());
-        assertEquals("FAILED", order.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), order.getStatus());
     }
     @Test
     void testSetPaymentCashOnDeliveryStatusToInvalid() {
         paymentData.put("address", "Citayam Raya Street No. 71");
         paymentData.put("deliveryFee", "100000");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "CASH_ON_DELIVERY", order, paymentData);
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.CASH_ON_DELIBERY.getValue(), order, paymentData);
 
         assertThrows(IllegalArgumentException.class, () -> payment.setStatus("EITS"));
     }
@@ -194,67 +197,67 @@ class PaymentTest {
     void testCreatePaymentWithValidVoucherCodePaymentData() {
         paymentData.put("voucherCode", "ESHOP1234ABC5678");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData);
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
 
-        assertEquals("SUCCESS", payment.getStatus());
-        assertEquals("SUCCESS", order.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.SUCCESS.getValue(), order.getStatus());
     }
     @Test
     void testCreatePaymentWithVoucherCodePaymentDataNot16Characters() {
         paymentData.put("voucherCode", "ESHOP1234ABC56789");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData);
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
-        assertEquals("FAILED", order.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), order.getStatus());
     }
     @Test
     void testCreatePaymentWithVoucherCodePaymentDataNotEshopFirst() {
         paymentData.put("voucherCode", "ASDFG1234ABC5678");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData);
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
-        assertEquals("FAILED", order.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), order.getStatus());
     }
     @Test
     void testCreatePaymentWithVoucherCodePaymentDataNot8Numerical() {
         paymentData.put("voucherCode", "ESHOP1234ABC567A");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", order, paymentData);
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
-        assertEquals("FAILED", order.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), order.getStatus());
     }
     @Test
     void testCreatePaymentWithValidCashOnDeliveryPaymentData() {
         paymentData.put("address", "Citayam Raya Street No. 71");
         paymentData.put("deliveryFee", "100000");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "CASH_ON_DELIVERY", order, paymentData);
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.CASH_ON_DELIBERY.getValue(), order, paymentData);
 
-        assertEquals("SUCCESS", payment.getStatus());
-        assertEquals("SUCCESS", order.getStatus());
+        assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.SUCCESS.getValue(), order.getStatus());
     }
     @Test
     void testCreatePaymentWithEmptyStringCashOnDeliveryPaymentData() {
         paymentData.put("address", "");
         paymentData.put("deliveryFee", "");
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "CASH_ON_DELIVERY", order, paymentData);
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.CASH_ON_DELIBERY.getValue(), order, paymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
-        assertEquals("FAILED", order.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), order.getStatus());
     }
     @Test
     void testCreatePaymentWithNullCashOnDeliveryPaymentData() {
         paymentData.put("address", null);
         paymentData.put("deliveryFee", null);
 
-        Payment payment = new Payment("1234567-asdfghj-89-kl", "CASH_ON_DELIVERY", order, paymentData);
+        Payment payment = new Payment("1234567-asdfghj-89-kl", PaymentMethod.CASH_ON_DELIBERY.getValue(), order, paymentData);
 
-        assertEquals("REJECTED", payment.getStatus());
-        assertEquals("FAILED", order.getStatus());
+        assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
+        assertEquals(OrderStatus.FAILED.getValue(), order.getStatus());
     }
 
 }
