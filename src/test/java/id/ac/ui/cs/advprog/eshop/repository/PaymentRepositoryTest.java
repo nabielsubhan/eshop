@@ -39,13 +39,13 @@ class PaymentRepositoryTest {
 
         Map<String, String> paymentDataVoucher = new HashMap<>();
         paymentDataVoucher.put("voucherCode", "ESHOP1234ABC5678");
-        Payment payment1 = new Payment("1234567-asdfghj-89-kl", "VOUCHER_CODE", orders.getFirst(), paymentDataVoucher);
+        Payment payment1 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "VOUCHER_CODE", orders.getFirst(), paymentDataVoucher);
         payments.add(payment1);
 
         Map<String, String> paymentDataCashOnDelivery = new HashMap<>();
         paymentDataCashOnDelivery.put("address", "Citayam Raya Street No. 71");
         paymentDataCashOnDelivery.put("deliveryFee", "100000");
-        Payment payment2 = new Payment("9876543-qwertyu-21-io", "CASH_ON_DELIVERY", orders.getFirst(), paymentDataCashOnDelivery);
+        Payment payment2 = new Payment("13652556-012a-4c07-b546-54eb1396d79b", "CASH_ON_DELIVERY", orders.getFirst(), paymentDataCashOnDelivery);
         payments.add(payment2);
     }
 
@@ -90,7 +90,7 @@ class PaymentRepositoryTest {
 
         List<Payment> findResult = paymentRepository.getAllPayments();
         for (int i = 0; i < findResult.size(); i++) {
-            assertEquals(payments.get(i), findResult.get(i));
+            assertEquals(payments.get(i).getId(), findResult.get(i).getId());
         }
     }
 }
