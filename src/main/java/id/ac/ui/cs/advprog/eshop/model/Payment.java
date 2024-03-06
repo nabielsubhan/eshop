@@ -1,5 +1,8 @@
 package id.ac.ui.cs.advprog.eshop.model;
 
+import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,20 +46,20 @@ public class Payment {
     }
 
     public void setStatus(String status) {
-        String[] statusList = {"SUCCESS", "REJECTED"};
+        String[] statusList = {PaymentStatus.SUCCESS.getValue(), PaymentStatus.REJECTED.getValue()};
         if (Arrays.stream(statusList).noneMatch(item -> (item.equals(status)))) {
             throw new IllegalArgumentException();
-        } else if (status.equals("SUCCESS")) {
+        } else if (status.equals(PaymentStatus.SUCCESS.getValue())) {
             this.status = status;
-            this.order.setStatus("SUCCESS");
-        } else if (status.equals("REJECTED")) {
+            this.order.setStatus(OrderStatus.SUCCESS.getValue());
+        } else if (status.equals(PaymentStatus.REJECTED.getValue())) {
             this.status = status;
-            this.order.setStatus("FAILED");
+            this.order.setStatus(OrderStatus.FAILED.getValue());
         }
     }
 
     public void setMethod(String method) {
-        String[] methodList = {"VOUCHER_CODE", "CASH_ON_DELIVERY"};
+        String[] methodList = {PaymentMethod.VOUCHER_CODE.getValue(), PaymentMethod.CASH_ON_DELIBERY.getValue()};
         if (Arrays.stream(methodList).noneMatch(item -> (item.equals(method)))) {
             throw new IllegalArgumentException();
         } else {
@@ -74,10 +77,10 @@ public class Payment {
 
         if (valid) {
             this.paymentData = paymentData;
-            this.setStatus("SUCCESS");
+            this.setStatus(PaymentStatus.SUCCESS.getValue());
         } else {
-            this.setStatus("REJECTED");
-            this.order.setStatus("FAILED");
+            this.setStatus(PaymentStatus.REJECTED.getValue());
+            this.order.setStatus(OrderStatus.FAILED.getValue());
         }
     }
 
